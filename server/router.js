@@ -1,8 +1,12 @@
+const passport = require('passport');
 const Authentication = require('./controllers/authentication');
+const passportService = require('./services/passport');
+
+const requireAuth = passport.authenticate('jwt', { session: false }); // we don't want cookie based sessions
 
 module.exports = function(app) {
+  app.get('/', requireAuth, function(req, res) {
+    res.send({ 'hi': 'there' });
+  });
   app.post('/signup', Authentication.signup);
-  // app.get('/', function(req, res, next) {
-  //   res.send(['water', 'bottle', 'phone', 'paper']);
-  // });
 }
