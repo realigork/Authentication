@@ -9,6 +9,17 @@ const userSchema = new Schema({
   password: String
 });
 
+// bcrypt will do the comparison itself and return a boolean if there is a match
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) {
+      return callback(err);
+    }
+
+    callback(null, isMatch);
+  });
+};
+
 // On Save Hook, encrypt password
 userSchema.pre('save', function(next) {
   const user = this;  // the context here is the user model

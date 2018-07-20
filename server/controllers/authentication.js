@@ -43,3 +43,9 @@ exports.signup = function(req, res, next) {
     });
   });
 };
+
+exports.signin = function(req, res, next) {
+  // User has already authorized, we just need to give him a token
+  // Since Strategy passes the 'user' model, we can extract it as req.user
+  res.send({ token: tokenForUser(req.user) });
+};
