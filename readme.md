@@ -8,6 +8,8 @@ An experiment developing authentication with Node server and React UI.
 1. Navigate to 'server' folder in your terminal
 2. Install dependencies: `npm install`
 3. Run MongoDB from the server folder: `mongod`
-4. Run the server from the server folder: `npm run dev`
+4. From another terminal in the same path, run the server: `npm run dev`
 5. Server should start running on port 3090
-6. Run the client from the client folder: `npm run start`
+6. Navigate to 'client' folder in another terminal
+7. Install dependencies: `npm install`
+8. Run the client: `npm run start`
