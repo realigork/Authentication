@@ -13,3 +13,8 @@ An experiment developing authentication with Node server and React UI.
 6. Navigate to 'client' folder in another terminal
 7. Install dependencies: `npm install`
 8. Run the client: `npm run start`
+9. Open the client app: 'http://localhost:3000/'
+
+You can now test the functionality by signing up with a user and accessing
+Feature page. Normally this route cannot be accessed unless the user has signed
+up or signed in.
