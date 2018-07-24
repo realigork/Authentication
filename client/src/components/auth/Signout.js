@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+
+import requireAuth from '../requireAuth';
 
 class Signout extends Component {
   componentDidMount() {
@@ -14,4 +17,6 @@ class Signout extends Component {
   }
 }
 
-export default connect(null, actions)(Signout);
+export default compose(
+  connect(null, actions)
+)(requireAuth(Signout));
