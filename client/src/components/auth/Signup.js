@@ -6,7 +6,9 @@ import * as actions from '../../actions';
 
 class Signup extends Component {
   onSubmit = (formProps) => {
-    this.props.authUser(formProps);
+    this.props.authUser(formProps, () => {
+      this.props.history.push('/feature');
+    });
   };
 
   render() {
@@ -28,13 +30,22 @@ class Signup extends Component {
           <label>Password:</label>
           <Field name="password" type="password" component="input" autoComplete="none" />
         </fieldset>
+
+        <div>
+          {this.props.errorMsg}
+        </div>
+
         <button>Sign up</button>
       </form>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return { errorMsg: state.auth.errorMsg }
+}
+
 export default compose(
-  connect(null, actions),
+  connect(mapStateToProps, actions),
   reduxForm({ form: 'signup' })
 )(Signup)
