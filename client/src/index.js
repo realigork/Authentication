@@ -11,6 +11,7 @@ import Feature from './components/Feature';
 import Signup from './components/auth/Signup';
 import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
+import ForgotPass from './components/auth/ForgotPass';
 import reducers from './reducers';
 
 const store = createStore(
@@ -30,6 +31,7 @@ ReactDOM.render(
         <Route path="/feature" component={Feature} />
         <Route path="/signout" component={Signout} />
         <Route path="/signin" component={Signin} />
+        <Route path="/forgot-pass" component={ForgotPass} />
       </App>
     </BrowserRouter>
   </Provider>,

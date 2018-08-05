@@ -17,6 +17,7 @@ class Header extends Component {
         <div>
           <Link to="/signup">Sign up</Link>
           <Link to="/signin">Sign in</Link>
+          <Link to="/forgot-pass">Forgot password</Link>
         </div>
       );
     }

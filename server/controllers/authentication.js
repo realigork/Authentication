@@ -7,6 +7,11 @@ function tokenForUser(user) {
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 }
 
+function resetTokenForUser(user) {
+  const timestamp = new Date().getTime();
+  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+}
+
 exports.signup = function(req, res, next) {
   // See if a user with the given email exists
   const email = req.body.email;
@@ -49,3 +54,46 @@ exports.signin = function(req, res, next) {
   // Since Strategy passes the 'user' model, we can extract it as req.user
   res.send({ token: tokenForUser(req.user) });
 };
+
+exports.forgotPass = function(req, res, next) {
+  const email = req.body.email;
+  console.log(email);
+
+  // If email is not provided, return an error
+  if (!email) {
+    return res.status(422).send({ error: 'You must provide email'});
+  }
+
+  // If a user with email does exist, return an error
+  User.findOne({ email: email }, function(err, data) {
+    // if user doesn't exist show an error
+    if (!data) {
+      return res.status(422).send({ error: 'User does not exist!' })
+    }
+    // if user exists show a reset link
+    // res.json({ user: data });
+    res.json({ resetToken: resetTokenForUser(data) });
+    // if (err) {
+    //   return next(err);
+    // }
+
+    // if (existingUser) {
+    //   return res.status(422).send({ error: 'Email already exists' });
+    // }
+
+    // If a user with email does NOT exist, create and save user record
+    // const user = new User({
+    //   email: email,
+    //   password: password
+    // });
+
+    // // Respond to request indicating the user was created
+    // user.save(function(err) {
+    //   if (err) {
+    //     return next(err);
+    //   }
+
+    //   res.json({ token: tokenForUser(user) });
+    // });
+  });
+}

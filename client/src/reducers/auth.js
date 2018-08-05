@@ -1,4 +1,4 @@
-import { AUTH_USER, AUTH_ERROR } from '../actions/types';
+import { AUTH_USER, AUTH_ERROR, NO_USER, FORGOT_PASS } from '../actions/types';
 
 const INITIAL_STATE = {
   authenticated: '',
@@ -8,9 +8,13 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, authenticated: action.payload } ;
+      return { ...state, authenticated: action.payload };
     case AUTH_ERROR:
-      return { ...state, errorMsg: action.payload }
+      return { ...state, errorMsg: action.payload };
+    case NO_USER:
+      return { ...state, errorMsg: action.payload, resetToken: null };
+    case FORGOT_PASS:
+      return { ...state, errorMsg: null, resetToken: action.payload }
     default:
       return state;
   }
