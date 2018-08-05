@@ -68,4 +68,30 @@ exports.forgotPass = function(req, res, next) {
     // if user exists show a reset link
     res.json({ resetToken: tokenForUser(data) });
   });
-}
+};
+
+exports.resetPass = function(req, res, next) {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  if (!email || !password) {
+    return res.status(422).send({ error: 'There was an error updating user!'});
+  }
+
+  User.findOne({ email: email }, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+
+    user.email = email;
+    user.password = password;
+
+    user.save(function(err) {
+      if (err) {
+        return next(err);
+      }
+
+      res.json({ token: tokenForUser(user) });
+    });
+  });
+};

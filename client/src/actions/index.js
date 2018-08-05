@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, NO_USER, FORGOT_PASS } from './types';
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  NO_USER,
+  FORGOT_PASS
+} from './types';
 
 // TODO rename to signup
 export const authUser = (formProps, callback) => async dispatch => {
@@ -38,15 +43,29 @@ export const signin = (formProps, callback) => async dispatch => {
     localStorage.setItem('token', response.data.token);
     callback();
   } catch(e) {
-    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' })
+    dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
   }
 };
 
 export const forgotPass = (formProps) => async dispatch => {
   try {
     const response = await axios.post('http://localhost:3090/forgot-pass', formProps);
-    dispatch({ type: FORGOT_PASS, payload: response.data.resetToken });
+    dispatch({ type: FORGOT_PASS, payload: response.data.resetToken, email: formProps.email });
   } catch(e) {
-    dispatch({ type: NO_USER, payload: 'User does not exist!' })
+    dispatch({ type: NO_USER, payload: 'User does not exist!' });
+  }
+}
+
+export const resetPass = (user, callback) => async dispatch => {
+  try {
+    const response = await axios.post('http://localhost:3090/reset-pass', user);
+    dispatch({
+      type: AUTH_USER,
+      payload: response.data.token
+    });
+    localStorage.setItem('token', response.data.token);
+    callback();
+  } catch(e) {
+    dispatch({ type: AUTH_ERROR, payload: 'Error updating password!' });
   }
 }

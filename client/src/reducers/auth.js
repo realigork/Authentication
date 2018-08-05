@@ -14,7 +14,7 @@ export default function(state = INITIAL_STATE, action) {
     case NO_USER:
       return { ...state, errorMsg: action.payload, resetToken: null };
     case FORGOT_PASS:
-      return { ...state, errorMsg: null, resetToken: action.payload }
+      return { ...state, errorMsg: null, resetToken: action.payload, email: action.email }
     default:
       return state;
   }

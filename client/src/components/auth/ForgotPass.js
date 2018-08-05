@@ -11,7 +11,7 @@ class ForgotPass extends Component {
   }
 
   showResetLink = () => {
-    const resetUrl = `/reset-pass?rt=${this.props.resetToken}`;
+    const resetUrl = `/reset-pass?rt=${this.props.resetToken}&e=${this.props.email}`;
     return (
       <p>
         To reset password <Link to={resetUrl}>click here</Link>
@@ -48,7 +48,8 @@ class ForgotPass extends Component {
 function mapStateToProps(state) {
   return {
     noUser: state.auth.errorMsg,
-    resetToken: state.auth.resetToken
+    resetToken: state.auth.resetToken,
+    email: state.auth.email
   }
 }
 

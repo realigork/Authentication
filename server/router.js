@@ -10,6 +10,7 @@ module.exports = function(app) {
     res.send({ 'hi': 'there' });
   });
   app.post('/forgot-pass', Authentication.forgotPass);
+  app.post('/reset-pass', Authentication.resetPass);
   app.post('/signin', requireSignin, Authentication.signin);
   app.post('/signup', Authentication.signup);
 }
