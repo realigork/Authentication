@@ -11,7 +11,7 @@ class ForgotPass extends Component {
   }
 
   showResetLink = () => {
-    const resetUrl = `/reset-pass&rt=${this.props.resetToken}`;
+    const resetUrl = `/reset-pass?rt=${this.props.resetToken}`;
     return (
       <p>
         To reset password <Link to={resetUrl}>click here</Link>
